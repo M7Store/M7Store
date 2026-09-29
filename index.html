@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>M7Store | Premium</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- MENU -->
+
+    <header class="header">
+
+        <a href="#" class="logo">
+            M7<span>STORE</span>
+        </a>
+
+        <nav class="nav">
+            <a href="#inicio">Início</a>
+            <a href="#produtos">Produtos</a>
+            <a href="#masculino">Masculino</a>
+            <a href="#feminino">Feminino</a>
+            <a href="#promocoes">Promoções</a>
+        </nav>
+
+        <div class="header-actions">
+
+            <button id="searchButton" class="icon-button">
+                🔍
+            </button>
+
+            <button id="cartButton" class="cart-button">
+                🛒
+                <span id="cartCount">0</span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- PESQUISA -->
+
+    <div id="searchBox" class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Pesquisar produto..."
+        >
+
+    </div>
+
+
+    <!-- HERO -->
+
+    <main>
+
+        <section id="inicio" class="hero">
+
+            <div class="hero-content">
+
+                <p class="hero-small">
+                    NOVA COLEÇÃO 2026
+                </p>
+
+                <h1>
+                    SEU ESTILO.
+                    <br>
+                    SUA <span>IDENTIDADE.</span>
+                </h1>
+
+                <p>
+                    Descubra peças exclusivas feitas para
+                    quem não gosta de passar despercebido.
+                </p>
+
+                <a href="#produtos" class="hero-button">
+                    Explorar coleção →
+                </a>
+
+            </div>
+
+            <div class="hero-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1000&q=80"
+                    alt="Modelo usando roupas modernas"
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- BENEFÍCIOS -->
+
+        <section class="benefits">
+
+            <div>
+                <strong>🚚 FRETE RÁPIDO</strong>
+                <p>Enviamos para todo o Brasil</p>
+            </div>
+
+            <div>
+                <strong>🔒 COMPRA SEGURA</strong>
+                <p>Seus dados protegidos</p>
+            </div>
+
+            <div>
+                <strong>💳 PAGAMENTO FÁCIL</strong>
+                <p>Pix, cartão e muito mais</p>
+            </div>
+
+            <div>
+                <strong>⭐ QUALIDADE</strong>
+                <p>Produtos selecionados</p>
+            </div>
+
+        </section>
+
+
+        <!-- PRODUTOS -->
+
+        <section id="produtos" class="products-section">
+
+            <div class="section-title">
+
+                <p>COLEÇÃO</p>
+
+                <h2>
+                    Produtos em destaque
+                </h2>
+
+                <span>
+                    As peças que estão fazendo sucesso.
+                </span>
+
+            </div>
+
+
+            <div class="filters">
+
+                <button class="filter active" data-category="todos">
+                    Todos
+                </button>
+
+                <button class="filter" data-category="camisetas">
+                    Camisetas
+                </button>
+
+                <button class="filter" data-category="calcas">
+                    Calças
+                </button>
+
+                <button class="filter" data-category="moletons">
+                    Moletons
+                </button>
+
+            </div>
+
+
+            <div id="productGrid" class="product-grid">
+
+
+                <!-- PRODUTO 1 -->
+
+                <article
+                    class="product-card"
+                    data-category="camisetas"
+                    data-name="Camiseta Oversized Black"
+                >
+
+                    <div class="product-image">
+
+                        <span class="badge">
+                            NOVO
+                        </span>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=700&q=80"
+                            alt="Camiseta preta"
+                        >
+
+                        <button class="quick-add">
+                            + Adicionar
+                        </button>
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <p>M7 ESSENTIALS</p>
+
+                        <h3>
+                            Camiseta Oversized Black
+                        </h3>
+
+                        <div class="rating">
+                            ⭐⭐⭐⭐⭐
+                        </div>
+
+                        <strong>
+                            R$ 79,90
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 2 -->
+
+                <article
+                    class="product-card"
+                    data-category="calcas"
+                    data-name="Calça Cargo Premium"
+                >
+
+                    <div class="product-image">
+
+                        <span class="badge sale">
+                            -20%
+                        </span>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=700&q=80"
+                            alt="Calça cargo"
+                        >
+
+                        <button class="quick-add">
+                            + Adicionar
+                        </button>
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <p>M7 STREET</p>
+
+                        <h3>
+                            Calça Cargo Premium
+                        </h3>
+
+                        <div class="rating">
+                            ⭐⭐⭐⭐⭐
+                        </div>
+
+                        <del>
+                            R$ 199,90
+                        </del>
+
+                        <strong>
+                            R$ 159,90
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 3 -->
+
+                <article
+                    class="product-card"
+                    data-category="moletons"
+                    data-name="Moletom M7 Black"
+                >
+
+                    <div class="product-image">
+
+                        <span class="badge">
+                            PREMIUM
+                        </span>
+
+                        <img
+                            src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=700&q=80"
+                            alt="Moletom preto"
+                        >
+
+                        <button class="quick-add">
+                            + Adicionar
+                        </button>
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <p>M7 PREMIUM</p>
+
+                        <h3>
+                            Moletom M7 Black
+                        </h3>
+
+                        <div class="rating">
+                            ⭐⭐⭐⭐⭐
+                        </div>
+
+                        <strong>
+                            R$ 179,90
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PRODUTO 4 -->
+
+                <article
+                    class="product-card"
+                    data-category="camisetas"
+                    data-name="Camiseta M7 White"
+                >
+
+                    <div class="product-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1583743814966-8936f37f4678?auto=format&fit=crop&w=700&q=80"
+                            alt="Camiseta branca"
+                        >
+
+                        <button class="quick-add">
+                            + Adicionar
+                        </button>
+
+                    </div>
+
+                    <div class="product-info">
+
+                        <p>M7 ESSENTIALS</p>
+
+                        <h3>
+                            Camiseta M7 White
+                        </h3>
+
+                        <div class="rating">
+                            ⭐⭐⭐⭐☆
+                        </div>
+
+                        <strong>
+                            R$ 74,90
+                        </strong>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- BANNER -->
+
+        <section class="banner">
+
+            <div>
+
+                <p>
+                    M7 PREMIUM
+                </p>
+
+                <h2>
+                    VISTA O EXTRAORDINÁRIO.
+                </h2>
+
+                <a href="#produtos">
+                    Comprar agora →
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- PROMOÇÃO -->
+
+        <section id="promocoes" class="promotion">
+
+            <div>
+
+                <p>
+                    OFERTA ESPECIAL
+                </p>
+
+                <h2>
+                    Até 30% OFF
+                </h2>
+
+                <span>
+                    Aproveite enquanto durar o estoque.
+                </span>
+
+            </div>
+
+            <a href="#produtos">
+                Ver ofertas
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- CARRINHO -->
+
+    <aside id="cart" class="cart">
+
+        <div class="cart-header">
+
+            <h2>
+                Seu carrinho
+            </h2>
+
+            <button id="closeCart">
+                ✕
+            </button>
+
+        </div>
+
+        <div id="cartItems" class="cart-items">
+
+            <p class="empty-cart">
+                Seu carrinho está vazio.
+            </p>
+
+        </div>
+
+        <div class="cart-footer">
+
+            <div>
+                <span>Total</span>
+
+                <strong id="cartTotal">
+                    R$ 0,00
+                </strong>
+            </div>
+
+            <button id="checkoutButton">
+                Finalizar compra
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- RODAPÉ -->
+
+    <footer>
+
+        <div class="footer-logo">
+            M7<span>STORE</span>
+        </div>
+
+        <p>
+            Moda, estilo e identidade.
+        </p>
+
+        <div class="social">
+            Instagram · TikTok · WhatsApp
+        </div>
+
+        <hr>
+
+        <small>
+            © 2026 M7Store. Todos os direitos reservados.
+        </small>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
