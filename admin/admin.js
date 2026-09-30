@@ -1,3 +1,5 @@
+alert("ADMIN.JS FUNCIONANDO!");
+
 const SUPABASE_URL =
     "https://kmxpwdgenkhqyhnjjfzf.supabase.co";
 
@@ -13,34 +15,22 @@ const loginForm = document.getElementById("loginForm");
 const message = document.getElementById("message");
 
 loginForm.addEventListener("submit", async (event) => {
-
     event.preventDefault();
+
+    message.textContent = "Entrando...";
 
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
-    message.style.color = "#aaa";
-    message.textContent = "Entrando...";
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password
+    const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password
     });
 
     if (error) {
-
-        console.error(error);
-
-        message.style.color = "#ff5555";
-        message.textContent = "E-mail ou senha incorretos.";
-
+        message.textContent = "Erro: " + error.message;
         return;
     }
 
-    message.style.color = "#55ff88";
-    message.textContent = "Login realizado!";
-
-    // Por enquanto, só vamos confirmar que o login funcionou.
-    console.log("Administrador conectado:", data.user);
-
+    message.textContent = "LOGIN REALIZADO!";
 });
