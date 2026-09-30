@@ -812,4 +812,121 @@ footer hr {
         right: -100%;
     }
 
+
+    /* ================================
+   CONTATO
+================================ */
+
+.contact-section {
+    padding: 90px 8%;
+    background: #050505;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.contact-section .section-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.contact-section .section-title span {
+    color: #b5ff00;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.contact-section .section-title h2 {
+    margin: 10px 0;
+    font-size: 38px;
+    color: #fff;
+}
+
+.contact-section .section-title p {
+    color: #888;
+    font-size: 15px;
+}
+
+.contact-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.contact-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 28px;
+    background: #0c0c0c;
+    border: 1px solid #1c1c1c;
+    border-radius: 18px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    border-color: #b5ff00;
+    box-shadow: 0 10px 35px rgba(181, 255, 0, 0.08);
+}
+
+.contact-icon {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    font-size: 28px;
+    color: #fff;
+}
+
+.instagram-icon {
+    background: linear-gradient(
+        135deg,
+        #833ab4,
+        #fd1d1d,
+        #fcb045
+    );
+}
+
+.whatsapp-icon {
+    background: #1a1a1a;
+    border: 1px solid #2b2b2b;
+}
+
+.contact-card h3 {
+    margin: 0 0 6px;
+    color: #fff;
+    font-size: 20px;
+}
+
+.contact-card p {
+    margin: 0 0 8px;
+    color: #888;
+}
+
+.contact-card span {
+    color: #b5ff00;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* CELULAR */
+
+@media (max-width: 700px) {
+    .contact-section {
+        padding: 70px 5%;
+    }
+
+    .contact-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-section .section-title h2 {
+        font-size: 30px;
+    }
 }
