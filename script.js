@@ -92,6 +92,59 @@ if (existingProduct) {
         quantity: 1
     });
 }
+
+         // Alterar quantidade (+ e -)
+function changeQuantity(index, delta) {
+    if (!productsInCart[index]) return;
+    productsInCart[index].quantity += delta;
+
+    if (productsInCart[index].quantity <= 0) {
+        productsInCart.splice(index, 1);
+    }
+    updateCart();
+}
+
+// Sistema de Cupom
+applyCouponBtn.addEventListener("click", applyCoupon);
+couponInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") applyCoupon();
+});
+
+function applyCoupon() {
+    const code = couponInput.value.trim().toUpperCase();
+    if (!code) return showCouponMessage("Digite um cupom válido.", "error");
+
+    if (VALID_COUPONS[code]) {
+        appliedCoupon = { code: code, ...VALID_COUPONS[code] };
+        couponInput.value = "";
+        showCouponMessage(`Cupom ${code} aplicado com sucesso!`, "success");
+        updateCart();
+    } else {
+        showCouponMessage("Cupom inválido ou expirado.", "error");
+    }
+}
+
+function removeCoupon() {
+    appliedCoupon = null;
+    couponMessage.innerHTML = "";
+    updateCart();
+}
+
+function showCouponMessage(text, type) {
+    if (type === "success") {
+        couponMessage.className = "coupon-message success";
+        couponMessage.innerHTML = `
+            <span>${text}</span>
+            <button type="button" onclick="removeCoupon()" class="remove-coupon-btn">Remover</button>
+        `;
+    } else {
+        couponMessage.className = "coupon-message error";
+        couponMessage.textContent = text;
+    }
+}
+
+
+
         updateCart();
 
         cart.classList.add("open");
@@ -105,66 +158,75 @@ if (existingProduct) {
 // ================================
 
 function updateCart() {
-
-    cartCount.textContent = productsInCart.length;
+    const totalItemsCount = productsInCart.reduce((sum, p) => sum + p.quantity, 0);
+    cartCount.textContent = totalItemsCount;
 
     if (productsInCart.length === 0) {
-
-        cartItems.innerHTML = `
-            <p class="empty-cart">
-                Seu carrinho está vazio.
-            </p>
-        `;
-
+        cartItems.innerHTML = `<p class="empty-cart">Seu carrinho está vazio.</p>`;
+        cartSubtotal.textContent = "R$ 0,00";
         cartTotal.textContent = "R$ 0,00";
-
+        discountRow.style.display = "none";
         return;
     }
 
     cartItems.innerHTML = "";
-
-    let total = 0;
+    let subtotal = 0;
 
     productsInCart.forEach((product, index) => {
-
-        total += product.price;
+        const itemSubtotal = product.price * product.quantity;
+        subtotal += itemSubtotal;
 
         const item = document.createElement("div");
-
         item.className = "cart-item";
 
         item.innerHTML = `
-            <div>
-
-                <strong>
-                    ${product.name}
-                </strong>
-
-                <p>
-                    R$ ${product.price
-                        .toFixed(2)
-                        .replace(".", ",")}
-                </p>
-
+            <div class="cart-item-details">
+                <strong>${product.name}</strong>
+                <p>R$ ${product.price.toFixed(2).replace(".", ",")} un.</p>
             </div>
 
-            <button
-                type="button"
-                onclick="removeProduct(${index})"
-            >
-                ✕
-            </button>
+            <div class="cart-item-actions">
+                <div class="qty-controls">
+                    <button type="button" class="qty-btn" onclick="changeQuantity(${index}, -1)">-</button>
+                    <span class="qty-number">${product.quantity}</span>
+                    <button type="button" class="qty-btn" onclick="changeQuantity(${index}, 1)">+</button>
+                </div>
+
+                <div class="cart-item-price">
+                    <strong>R$ ${itemSubtotal.toFixed(2).replace(".", ",")}</strong>
+                </div>
+
+                <button type="button" class="delete-btn" onclick="removeProduct(${index})">✕</button>
+            </div>
         `;
 
         cartItems.appendChild(item);
-
     });
 
-    cartTotal.textContent =
-        `R$ ${total
-            .toFixed(2)
-            .replace(".", ",")}`;
+    let discountAmount = 0;
+    if (appliedCoupon) {
+        if (appliedCoupon.type === "percentage") {
+            discountAmount = (subtotal * appliedCoupon.value) / 100;
+        } else if (appliedCoupon.type === "fixed") {
+            discountAmount = appliedCoupon.value;
+        }
+        if (discountAmount > subtotal) discountAmount = subtotal;
+    }
+
+    const finalTotal = subtotal - discountAmount;
+
+    cartSubtotal.textContent = `R$ ${subtotal.toFixed(2).replace(".", ",")}`;
+
+    if (discountAmount > 0) {
+        discountRow.style.display = "flex";
+        cartDiscount.textContent = `-R$ ${discountAmount.toFixed(2).replace(".", ",")}`;
+    } else {
+        discountRow.style.display = "none";
+    }
+
+    cartTotal.textContent = `R$ ${finalTotal.toFixed(2).replace(".", ",")}`;
 }
+
 
 
 // ================================
