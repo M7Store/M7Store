@@ -81,11 +81,17 @@ addButtons.forEach((button) => {
             return;
         }
 
-        productsInCart.push({
-            name: name,
-            price: price
-        });
+       const existingProduct = productsInCart.find((p) => p.name === name);
 
+if (existingProduct) {
+    existingProduct.quantity += 1;
+} else {
+    productsInCart.push({
+        name: name,
+        price: price,
+        quantity: 1
+    });
+}
         updateCart();
 
         cart.classList.add("open");
