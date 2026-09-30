@@ -1,36 +1,53 @@
-alert("ADMIN.JS FUNCIONANDO!");
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-const SUPABASE_URL =
-    "https://kmxpwdgenkhqyhnjjfzf.supabase.co";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-const SUPABASE_PUBLISHABLE_KEY =
-    "sb_publishable_UpAW1S3BKBNGGrlUCB_EvA_BwwDhBbF";
+    <title>M7Store | Admin</title>
 
-const supabase = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
+    <link rel="stylesheet" href="./admin.css">
+</head>
 
-const loginForm = document.getElementById("loginForm");
-const message = document.getElementById("message");
+<body>
 
-loginForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+    <div class="login-container">
 
-    message.textContent = "Entrando...";
+        <h1>M7Store Admin</h1>
 
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
+        <p>Entre para acessar o painel administrativo.</p>
 
-    const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-    });
+        <form id="loginForm">
 
-    if (error) {
-        message.textContent = "Erro: " + error.message;
-        return;
-    }
+            <input
+                type="email"
+                id="email"
+                placeholder="E-mail"
+                required
+            >
 
-    message.textContent = "LOGIN REALIZADO!";
-});
+            <input
+                type="password"
+                id="password"
+                placeholder="Senha"
+                required
+            >
+
+            <button type="submit">
+                Entrar
+            </button>
+
+        </form>
+
+        <div id="message"></div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="./admin.js"></script>
+
+</body>
+
+</html>
