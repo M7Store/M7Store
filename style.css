@@ -1,3 +1,12 @@
+:root {
+    --gold: #D6A84F;
+    --gold-light: #F0C96A;
+    --black: #050505;
+    --dark: #0A0A0A;
+    --gray: #888888;
+    --white: #FFFFFF;
+}
+
 * {
     margin: 0;
     padding: 0;
