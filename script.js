@@ -349,53 +349,60 @@ searchInput.addEventListener("input", () => {
 // WHATSAPP
 // ================================
 
-const checkoutButton =
-    document.getElementById("checkoutButton");
-
-
 checkoutButton.addEventListener("click", () => {
-
     if (productsInCart.length === 0) {
-
         alert("Seu carrinho está vazio!");
-
         return;
     }
 
-    let total = 0;
+    let subtotal = 0;
 
-    const productLines =
-        productsInCart.map((product) => {
+    const productLines = productsInCart.map((product) => {
+        const itemSubtotal = product.price * product.quantity;
+        subtotal += itemSubtotal;
+        return `• *${product.quantity}x* ${product.name}\n  _R$ ${product.price.toFixed(2).replace(".", ",")} un._ ➔ *R$ ${itemSubtotal.toFixed(2).replace(".", ",")}*`;
+    });
 
-            total += product.price;
+    let discountAmount = 0;
+    let couponText = "Nenhum cupom aplicado";
 
-            return `• ${product.name} — R$ ${
-                product.price
-                    .toFixed(2)
-                    .replace(".", ",")
-            }`;
+    if (appliedCoupon) {
+        if (appliedCoupon.type === "percentage") {
+            discountAmount = (subtotal * appliedCoupon.value) / 100;
+        } else if (appliedCoupon.type === "fixed") {
+            discountAmount = appliedCoupon.value;
+        }
+        if (discountAmount > subtotal) discountAmount = subtotal;
 
-        });
+        couponText = `\`${appliedCoupon.code}\` (${appliedCoupon.label})`;
+    }
 
+    const total = subtotal - discountAmount;
 
-    const message =
-        `Olá! Quero fazer um pedido na M7Store.%0A%0A` +
-        `${productLines.join("%0A")}%0A%0A` +
-        `*Total: R$ ${
-            total
-                .toFixed(2)
-                .replace(".", ",")
-        }*`;
+    // Mensagem estilo Embed do Discord
+    let message = `🛍️ *M7STORE — NOVO PEDIDO*\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
+    message += `📋 *ITENS DO PEDIDO:*\n\n`;
+    message += `${productLines.join("\n\n")}\n\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `💵 *RESUMO FINANCEIRO:*\n`;
+    message += `• *Subtotal:* R$ ${subtotal.toFixed(2).replace(".", ",")}\n`;
+    message += `🎟️ *Cupom:* ${couponText}\n`;
 
+    if (discountAmount > 0) {
+        message += `💰 *Desconto:* -R$ ${discountAmount.toFixed(2).replace(".", ",")}\n`;
+    }
 
-    const whatsappUrl =
-        `https://wa.me/5532998048061?text=${message}`;
+    message += `🔥 *TOTAL A PAGAR:* *R$ ${total.toFixed(2).replace(".", ",")}*\n\n`;
+    message += `━━━━━━━━━━━━━━━━━━━━━\n`;
+    message += `📍 *Aguardando confirmação para envio!*`;
 
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/5532998048061?text=${encodedMessage}`;
 
-    window.open(
-        whatsappUrl,
-        "_blank"
-    );
+    window.open(whatsappUrl, "_blank");
+});
+
 
 });
 
