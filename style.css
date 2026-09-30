@@ -3,7 +3,9 @@
     --gold-light: #F0C96A;
     --black: #050505;
     --dark: #0A0A0A;
+    --card-bg: #111111;
     --gray: #888888;
+    --gray-dark: #222222;
     --white: #FFFFFF;
 }
 
@@ -20,7 +22,7 @@ html {
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: var(--black);
-    color: white;
+    color: var(--white);
 }
 
 
@@ -41,14 +43,14 @@ body {
 
     padding: 0 6%;
 
-    background: rgba(8, 8, 8, 0.92);
-    border-bottom: 1px solid #222;
+    background: rgba(5, 5, 5, 0.92);
+    border-bottom: 1px solid var(--gray-dark);
 
     backdrop-filter: blur(15px);
 }
 
 .logo {
-    color: white;
+    color: var(--white);
     text-decoration: none;
 
     font-size: 24px;
@@ -86,8 +88,8 @@ body {
 .icon-button,
 .cart-button {
     border: 1px solid #333;
-    background: #111;
-    color: white;
+    background: var(--card-bg);
+    color: var(--white);
 
     padding: 10px 14px;
     border-radius: 8px;
@@ -120,7 +122,7 @@ body {
     justify-content: center;
 
     background: var(--gold);
-    color: black;
+    color: var(--black);
 
     border-radius: 50%;
 
@@ -154,7 +156,7 @@ body {
     border: 1px solid #333;
     border-radius: 8px;
 
-    color: white;
+    color: var(--white);
     outline: none;
 }
 
@@ -178,8 +180,8 @@ body {
     padding: 70px 6%;
 
     background:
-        radial-gradient(circle at 20% 50%, #202020, transparent 40%),
-        #080808;
+        radial-gradient(circle at 20% 50%, #1a1a1a, transparent 40%),
+        var(--black);
 }
 
 .hero-content {
@@ -223,7 +225,7 @@ body {
     padding: 15px 25px;
 
     background: var(--gold);
-    color: black;
+    color: var(--black);
 
     text-decoration: none;
 
@@ -236,7 +238,8 @@ body {
 
 .hero-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(214, 168, 79, 0.2);
+    background: var(--gold-light);
+    box-shadow: 0 10px 30px rgba(214, 168, 79, 0.3);
 }
 
 .hero-image {
@@ -267,14 +270,14 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 
-    border-top: 1px solid #222;
-    border-bottom: 1px solid #222;
+    border-top: 1px solid var(--gray-dark);
+    border-bottom: 1px solid var(--gray-dark);
 }
 
 .benefits div {
     padding: 30px;
 
-    border-right: 1px solid #222;
+    border-right: 1px solid var(--gray-dark);
 }
 
 .benefits strong {
@@ -284,7 +287,7 @@ body {
 .benefits p {
     margin-top: 8px;
 
-    color: #777;
+    color: var(--gray);
     font-size: 12px;
 }
 
@@ -315,7 +318,7 @@ body {
 }
 
 .section-title span {
-    color: #777;
+    color: var(--gray);
 }
 
 .filters {
@@ -328,19 +331,20 @@ body {
 .filter {
     padding: 10px 18px;
 
-    background: #111;
+    background: var(--card-bg);
     color: #aaa;
 
     border: 1px solid #333;
     border-radius: 20px;
 
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .filter:hover,
 .filter.active {
     background: var(--gold);
-    color: black;
+    color: var(--black);
 
     border-color: var(--gold);
 }
@@ -354,9 +358,9 @@ body {
 }
 
 .product-card {
-    background: #111;
+    background: var(--card-bg);
 
-    border: 1px solid #222;
+    border: 1px solid var(--gray-dark);
 
     border-radius: 10px;
 
@@ -367,7 +371,7 @@ body {
 
 .product-card:hover {
     transform: translateY(-6px);
-    border-color: #444;
+    border-color: var(--gold);
 }
 
 .product-image {
@@ -404,7 +408,7 @@ body {
     padding: 6px 10px;
 
     background: var(--gold);
-    color: black;
+    color: var(--black);
 
     font-size: 10px;
     font-weight: bold;
@@ -412,7 +416,7 @@ body {
 
 .badge.sale {
     background: #ff3b3b;
-    color: white;
+    color: var(--white);
 }
 
 .quick-add {
@@ -424,8 +428,8 @@ body {
 
     padding: 13px;
 
-    background: white;
-    color: black;
+    background: var(--white);
+    color: var(--black);
 
     border: none;
     border-radius: 5px;
@@ -445,12 +449,16 @@ body {
     transform: translateY(0);
 }
 
+.quick-add:hover {
+    background: var(--gold);
+}
+
 .product-info {
     padding: 20px;
 }
 
 .product-info p {
-    color: #777;
+    color: var(--gray);
 
     font-size: 10px;
     letter-spacing: 2px;
@@ -474,6 +482,7 @@ body {
     display: block;
 
     font-size: 18px;
+    color: var(--white);
 }
 
 .product-info del {
@@ -501,8 +510,8 @@ body {
     background:
         linear-gradient(
             90deg,
-            rgba(0, 0, 0, 0.9),
-            rgba(0, 0, 0, 0.2)
+            rgba(5, 5, 5, 0.95),
+            rgba(5, 5, 5, 0.3)
         ),
         url("https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=1600&q=80");
 
@@ -527,7 +536,7 @@ body {
 }
 
 .banner a {
-    color: black;
+    color: var(--black);
     background: var(--gold);
 
     display: inline-block;
@@ -538,6 +547,11 @@ body {
     font-weight: bold;
 
     border-radius: 5px;
+    transition: 0.3s;
+}
+
+.banner a:hover {
+    background: var(--gold-light);
 }
 
 
@@ -555,7 +569,7 @@ body {
     justify-content: space-between;
 
     background: var(--gold);
-    color: black;
+    color: var(--black);
 
     border-radius: 10px;
 }
@@ -572,18 +586,24 @@ body {
 }
 
 .promotion span {
-    color: #333;
+    color: #222;
 }
 
 .promotion a {
     padding: 14px 25px;
 
-    background: black;
-    color: white;
+    background: var(--black);
+    color: var(--white);
 
     text-decoration: none;
 
     border-radius: 5px;
+    transition: 0.3s;
+}
+
+.promotion a:hover {
+    background: var(--dark);
+    color: var(--gold);
 }
 
 
@@ -602,7 +622,7 @@ body {
     width: 400px;
     height: 100vh;
 
-    background: #111;
+    background: var(--card-bg);
 
     border-left: 1px solid #333;
 
@@ -628,7 +648,7 @@ body {
 
 .cart-header button {
     background: none;
-    color: white;
+    color: var(--white);
 
     border: none;
 
@@ -646,7 +666,7 @@ body {
 }
 
 .empty-cart {
-    color: #777;
+    color: var(--gray);
 
     text-align: center;
 
@@ -659,12 +679,12 @@ body {
 
     padding: 15px 0;
 
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid var(--gray-dark);
 }
 
 .cart-item button {
-    background: #222;
-    color: white;
+    background: var(--gray-dark);
+    color: var(--white);
 
     border: none;
 
@@ -694,11 +714,102 @@ body {
     border: none;
 
     background: var(--gold);
-    color: black;
+    color: var(--black);
 
     font-weight: bold;
 
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.cart-footer button:hover {
+    background: var(--gold-light);
+}
+
+
+/* =========================
+   CONTATO — M7STORE
+========================= */
+
+.contact-section {
+    padding: 100px 8%;
+    background: var(--black);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.contact-header {
+    max-width: 1000px;
+    margin: 0 auto 45px;
+}
+
+.contact-header span {
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.contact-header h2 {
+    margin: 10px 0 0;
+    color: var(--white);
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+
+.contact-links {
+    max-width: 1000px;
+    margin: auto;
+    border-top: 1px solid #1c1c1c;
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 25px 5px;
+
+    text-decoration: none;
+
+    border-bottom: 1px solid #1c1c1c;
+
+    transition: 0.25s ease;
+}
+
+.contact-link:hover {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.contact-link small {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #666;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.contact-link strong {
+    color: var(--white);
+
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.contact-arrow {
+    color: var(--gold);
+    font-size: 24px;
+
+    transition: 0.25s ease;
+}
+
+.contact-link:hover .contact-arrow {
+    transform: translate(4px, -4px);
 }
 
 
@@ -711,13 +822,13 @@ footer {
 
     background: var(--black);
 
-    color: #777;
+    color: var(--gray);
 
     text-align: center;
 }
 
 .footer-logo {
-    color: white;
+    color: var(--white);
 
     font-size: 28px;
     font-weight: bold;
@@ -734,7 +845,7 @@ footer {
 footer hr {
     border: none;
 
-    border-top: 1px solid #222;
+    border-top: 1px solid var(--gray-dark);
 
     margin-bottom: 25px;
 }
@@ -764,6 +875,23 @@ footer hr {
 
     .benefits {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .contact-section {
+        padding: 70px 5%;
+    }
+
+    .contact-header h2 {
+        font-size: 28px;
+    }
+
+    .contact-link strong {
+        font-size: 16px;
     }
 
 }
@@ -821,105 +949,4 @@ footer hr {
         right: -100%;
     }
 
-
-   /* ================================
-   CONTATO — M7STORE
-================================ */
-
-.contact-section {
-    padding: 100px 8%;
-    background: var(--black);
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.contact-header {
-    max-width: 1000px;
-    margin: 0 auto 45px;
-}
-
-.contact-header span {
-    color: var(--gold);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-}
-
-.contact-header h2 {
-    margin: 10px 0 0;
-    color: #fff;
-    font-size: 36px;
-    font-weight: 600;
-    letter-spacing: -1px;
-}
-
-.contact-links {
-    max-width: 1000px;
-    margin: auto;
-    border-top: 1px solid #1c1c1c;
-}
-
-.contact-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 25px 5px;
-
-    text-decoration: none;
-
-    border-bottom: 1px solid #1c1c1c;
-
-    transition: 0.25s ease;
-}
-
-.contact-link:hover {
-    padding-left: 12px;
-    padding-right: 12px;
-}
-
-.contact-link small {
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #666;
-
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-}
-
-.contact-link strong {
-    color: #fff;
-
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.contact-arrow {
-    color: var(--gold);
-    font-size: 24px;
-
-    transition: 0.25s ease;
-}
-
-.contact-link:hover .contact-arrow {
-    transform: translate(4px, -4px);
-}
-
-/* CELULAR */
-
-@media (max-width: 700px) {
-
-    .contact-section {
-        padding: 70px 5%;
-    }
-
-    .contact-header h2 {
-        font-size: 28px;
-    }
-
-    .contact-link strong {
-        font-size: 16px;
-    }
 }
