@@ -28,6 +28,19 @@ const VALID_COUPONS = {
 
 let appliedCoupon = null;
 
+// ABRIR E FECHAR CARRINHO
+if (cartButton && closeCart) {
+    cartButton.addEventListener("click", () => cart.classList.add("open"));
+    closeCart.addEventListener("click", () => cart.classList.remove("open"));
+}
+
+// FUNÇÃO PARA REMOVER ITEM INDIVIDUAL
+function removeProduct(index) {
+    productsInCart.splice(index, 1);
+    updateCart();
+}
+
+
 
 // ================================
 // ABRIR CARRINHO
