@@ -6,13 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>M7Store | Admin</title>
+
+    <link rel="stylesheet" href="admin.css">
 </head>
 
 <body>
 
-    <h1>Painel Administrativo M7Store</h1>
+    <div class="login-container">
 
-    <p>Área exclusiva do administrador.</p>
+        <h1>M7Store Admin</h1>
+
+        <p>Entre para acessar o painel administrativo.</p>
+
+        <form id="loginForm">
+
+            <input
+                type="email"
+                id="email"
+                placeholder="E-mail"
+                required
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Senha"
+                required
+            >
+
+            <button type="submit">
+                Entrar
+            </button>
+
+        </form>
+
+        <div id="message"></div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
 
 </body>
 
