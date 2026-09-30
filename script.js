@@ -304,3 +304,6 @@ checkoutButton.addEventListener("click", () => {
     );
 
 });
+
+console.log("M7Store: script.js carregado!");
+console.log("Supabase:", supabase);
