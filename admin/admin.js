@@ -12,7 +12,11 @@ const supabase = window.supabase.createClient(
 const loginForm = document.getElementById("loginForm");
 const message = document.getElementById("message");
 
+message.textContent = "Supabase conectado. Faça login.";
+message.style.color = "#55ff88";
+
 loginForm.addEventListener("submit", async (event) => {
+
     event.preventDefault();
 
     const email = document.getElementById("email").value.trim();
@@ -27,13 +31,16 @@ loginForm.addEventListener("submit", async (event) => {
     });
 
     if (error) {
+        console.error(error);
+
         message.textContent = "Erro: " + error.message;
         message.style.color = "#ff5555";
+
         return;
     }
 
-    message.textContent = "Login realizado com sucesso!";
-    message.style.color = "#55ff88";
-
     console.log("Usuário conectado:", data.user);
+
+    message.textContent = "✅ Login realizado com sucesso!";
+    message.style.color = "#55ff88";
 });
