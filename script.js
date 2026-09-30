@@ -8,9 +8,25 @@ const closeCart = document.getElementById("closeCart");
 
 const cartItems = document.getElementById("cartItems");
 const cartCount = document.getElementById("cartCount");
+const cartSubtotal = document.getElementById("cartSubtotal");
+const cartDiscount = document.getElementById("cartDiscount");
 const cartTotal = document.getElementById("cartTotal");
+const discountRow = document.getElementById("discountRow");
+
+const couponInput = document.getElementById("couponInput");
+const applyCouponBtn = document.getElementById("applyCouponBtn");
+const couponMessage = document.getElementById("couponMessage");
 
 let productsInCart = [];
+
+// Cupons cadastrados
+const VALID_COUPONS = {
+    "M7STORE10": { type: "percentage", value: 10, label: "10% OFF" },
+    "PRIMEIRACOMPRA": { type: "percentage", value: 15, label: "15% OFF" },
+    "M7VIP": { type: "fixed", value: 20, label: "R$ 20,00 OFF" }
+};
+
+let appliedCoupon = null;
 
 
 // ================================
