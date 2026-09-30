@@ -409,46 +409,45 @@
     </main>
 
 
-    <!-- CARRINHO -->
-
+   <!-- CARRINHO -->
     <aside id="cart" class="cart">
-
         <div class="cart-header">
-
-            <h2>
-                Seu carrinho
-            </h2>
-
-            <button id="closeCart">
-                ✕
-            </button>
-
+            <h2>Seu carrinho</h2>
+            <button id="closeCart" aria-label="Fechar carrinho">✕</button>
         </div>
 
         <div id="cartItems" class="cart-items">
-
-            <p class="empty-cart">
-                Seu carrinho está vazio.
-            </p>
-
+            <p class="empty-cart">Seu carrinho está vazio.</p>
         </div>
 
+        <!-- ÁREA DE CUPOM (NOVO) -->
+        <div class="cart-coupon">
+            <div class="coupon-input-group">
+                <input type="text" id="couponInput" placeholder="Possui um cupom?" autocomplete="off">
+                <button type="button" id="applyCouponBtn">Aplicar</button>
+            </div>
+            <div id="couponMessage" class="coupon-message"></div>
+        </div>
+
+        <!-- RESUMO FINANCEIRO (NOVO) -->
         <div class="cart-footer">
-
-            <div>
-                <span>Total</span>
-
-                <strong id="cartTotal">
-                    R$ 0,00
-                </strong>
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="cartSubtotal">R$ 0,00</span>
+                </div>
+                <div class="summary-row discount-row" id="discountRow" style="display: none;">
+                    <span>Desconto</span>
+                    <span id="cartDiscount">-R$ 0,00</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Total</span>
+                    <strong id="cartTotal">R$ 0,00</strong>
+                </div>
             </div>
 
-            <button id="checkoutButton">
-                Finalizar compra
-            </button>
-
+            <button id="checkoutButton">Finalizar compra</button>
         </div>
-
     </aside>
 
 
