@@ -1,4 +1,22 @@
 // ================================
+// SUPABASE
+// ================================
+
+const SUPABASE_URL =
+    "https://kmxpwdgenkhqyhnjjfzf.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_UpAW1S3BKBNGGrlUCB_EvA_BwwDhBbF";
+
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+console.log("Supabase conectado!");
+
+
+// ================================
 // CARRINHO
 // ================================
 
