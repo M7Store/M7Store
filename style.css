@@ -949,4 +949,21 @@ footer hr {
         right: -100%;
     }
 
+    /* =========================
+   AJUSTE DA LOGO COM IMAGEM
+========================= */
+.logo, .footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.logo img, .footer-logo img {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 }
