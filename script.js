@@ -17,6 +17,9 @@ const couponInput = document.getElementById("couponInput");
 const applyCouponBtn = document.getElementById("applyCouponBtn");
 const couponMessage = document.getElementById("couponMessage");
 
+// Adicionado a declaração do botão de checkout que estava faltando
+const checkoutButton = document.getElementById("checkoutButton");
+
 let productsInCart = [];
 
 // Cupons cadastrados
@@ -28,85 +31,21 @@ const VALID_COUPONS = {
 
 let appliedCoupon = null;
 
+// ================================
 // ABRIR E FECHAR CARRINHO
+// ================================
+
 if (cartButton && closeCart) {
     cartButton.addEventListener("click", () => cart.classList.add("open"));
     closeCart.addEventListener("click", () => cart.classList.remove("open"));
 }
 
-// FUNÇÃO PARA REMOVER ITEM INDIVIDUAL
-function removeProduct(index) {
-    productsInCart.splice(index, 1);
-    updateCart();
-}
-
-
-
 // ================================
-// ABRIR CARRINHO
+// SISTEMA DE QUANTIDADE E CUPONS
 // ================================
+// (Movidos para fora do AddEventListerner para poderem ser chamados globalmente)
 
-cartButton.addEventListener("click", () => {
-    cart.classList.add("open");
-});
-
-
-// ================================
-// FECHAR CARRINHO
-// ================================
-
-closeCart.addEventListener("click", () => {
-    cart.classList.remove("open");
-});
-
-
-// ================================
-// ADICIONAR PRODUTO
-// ================================
-
-const addButtons = document.querySelectorAll(".quick-add");
-
-addButtons.forEach((button) => {
-
-    button.addEventListener("click", () => {
-
-        const card = button.closest(".product-card");
-
-        if (!card) return;
-
-        const name = card.dataset.name;
-
-        const priceElement =
-            card.querySelector(".product-info strong");
-
-        if (!priceElement) return;
-
-        const priceText = priceElement.textContent
-            .replace("R$", "")
-            .replace(/\./g, "")
-            .replace(",", ".")
-            .trim();
-
-        const price = Number(priceText);
-
-        if (!name || !Number.isFinite(price)) {
-            alert("Não foi possível adicionar este produto.");
-            return;
-        }
-
-       const existingProduct = productsInCart.find((p) => p.name === name);
-
-if (existingProduct) {
-    existingProduct.quantity += 1;
-} else {
-    productsInCart.push({
-        name: name,
-        price: price,
-        quantity: 1
-    });
-}
-
-         // Alterar quantidade (+ e -)
+// Alterar quantidade (+ e -)
 function changeQuantity(index, delta) {
     if (!productsInCart[index]) return;
     productsInCart[index].quantity += delta;
@@ -117,11 +56,13 @@ function changeQuantity(index, delta) {
     updateCart();
 }
 
-// Sistema de Cupom
-applyCouponBtn.addEventListener("click", applyCoupon);
-couponInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") applyCoupon();
-});
+// Eventos de Cupom
+if (applyCouponBtn && couponInput) {
+    applyCouponBtn.addEventListener("click", applyCoupon);
+    couponInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") applyCoupon();
+    });
+}
 
 function applyCoupon() {
     const code = couponInput.value.trim().toUpperCase();
@@ -139,11 +80,12 @@ function applyCoupon() {
 
 function removeCoupon() {
     appliedCoupon = null;
-    couponMessage.innerHTML = "";
+    if (couponMessage) couponMessage.innerHTML = "";
     updateCart();
 }
 
 function showCouponMessage(text, type) {
+    if (!couponMessage) return;
     if (type === "success") {
         couponMessage.className = "coupon-message success";
         couponMessage.innerHTML = `
@@ -156,15 +98,52 @@ function showCouponMessage(text, type) {
     }
 }
 
+// ================================
+// ADICIONAR PRODUTO
+// ================================
 
+const addButtons = document.querySelectorAll(".quick-add");
+
+addButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const card = button.closest(".product-card");
+
+        if (!card) return;
+
+        const name = card.dataset.name;
+        const priceElement = card.querySelector(".product-info strong");
+
+        if (!priceElement) return;
+
+        const priceText = priceElement.textContent
+            .replace("R$", "")
+            .replace(/\./g, "")
+            .replace(",", ".")
+            .trim();
+
+        const price = Number(priceText);
+
+        if (!name || !Number.isFinite(price)) {
+            alert("Não foi possível adicionar este produto.");
+            return;
+        }
+
+        const existingProduct = productsInCart.find((p) => p.name === name);
+
+        if (existingProduct) {
+            existingProduct.quantity += 1;
+        } else {
+            productsInCart.push({
+                name: name,
+                price: price,
+                quantity: 1
+            });
+        }
 
         updateCart();
-
         cart.classList.add("open");
     });
-
 });
-
 
 // ================================
 // ATUALIZAR CARRINHO
@@ -172,17 +151,17 @@ function showCouponMessage(text, type) {
 
 function updateCart() {
     const totalItemsCount = productsInCart.reduce((sum, p) => sum + p.quantity, 0);
-    cartCount.textContent = totalItemsCount;
+    if(cartCount) cartCount.textContent = totalItemsCount;
 
     if (productsInCart.length === 0) {
-        cartItems.innerHTML = `<p class="empty-cart">Seu carrinho está vazio.</p>`;
-        cartSubtotal.textContent = "R$ 0,00";
-        cartTotal.textContent = "R$ 0,00";
-        discountRow.style.display = "none";
+        if(cartItems) cartItems.innerHTML = `<p class="empty-cart">Seu carrinho está vazio.</p>`;
+        if(cartSubtotal) cartSubtotal.textContent = "R$ 0,00";
+        if(cartTotal) cartTotal.textContent = "R$ 0,00";
+        if(discountRow) discountRow.style.display = "none";
         return;
     }
 
-    cartItems.innerHTML = "";
+    if(cartItems) cartItems.innerHTML = "";
     let subtotal = 0;
 
     productsInCart.forEach((product, index) => {
@@ -213,7 +192,7 @@ function updateCart() {
             </div>
         `;
 
-        cartItems.appendChild(item);
+        if(cartItems) cartItems.appendChild(item);
     });
 
     let discountAmount = 0;
@@ -228,197 +207,141 @@ function updateCart() {
 
     const finalTotal = subtotal - discountAmount;
 
-    cartSubtotal.textContent = `R$ ${subtotal.toFixed(2).replace(".", ",")}`;
+    if(cartSubtotal) cartSubtotal.textContent = `R$ ${subtotal.toFixed(2).replace(".", ",")}`;
 
     if (discountAmount > 0) {
-        discountRow.style.display = "flex";
-        cartDiscount.textContent = `-R$ ${discountAmount.toFixed(2).replace(".", ",")}`;
+        if(discountRow) discountRow.style.display = "flex";
+        if(cartDiscount) cartDiscount.textContent = `-R$ ${discountAmount.toFixed(2).replace(".", ",")}`;
     } else {
-        discountRow.style.display = "none";
+        if(discountRow) discountRow.style.display = "none";
     }
 
-    cartTotal.textContent = `R$ ${finalTotal.toFixed(2).replace(".", ",")}`;
+    if(cartTotal) cartTotal.textContent = `R$ ${finalTotal.toFixed(2).replace(".", ",")}`;
 }
-
-
 
 // ================================
 // REMOVER PRODUTO
 // ================================
 
 function removeProduct(index) {
-
     productsInCart.splice(index, 1);
-
     updateCart();
-
 }
-
 
 // ================================
 // FILTRO DE PRODUTOS
 // ================================
 
-const filters =
-    document.querySelectorAll(".filter");
-
-const productCards =
-    document.querySelectorAll(".product-card");
-
+const filters = document.querySelectorAll(".filter");
+const productCards = document.querySelectorAll(".product-card");
 
 filters.forEach((filter) => {
-
     filter.addEventListener("click", () => {
-
         filters.forEach((item) => {
             item.classList.remove("active");
         });
 
         filter.classList.add("active");
-
-        const category =
-            filter.dataset.category;
+        const category = filter.dataset.category;
 
         productCards.forEach((card) => {
-
-            if (
-                category === "todos" ||
-                card.dataset.category === category
-            ) {
-
+            if (category === "todos" || card.dataset.category === category) {
                 card.style.display = "";
-
             } else {
-
                 card.style.display = "none";
-
             }
-
         });
-
     });
-
 });
-
 
 // ================================
 // PESQUISA
 // ================================
 
-const searchButton =
-    document.getElementById("searchButton");
+const searchButton = document.getElementById("searchButton");
+const searchBox = document.getElementById("searchBox");
+const searchInput = document.getElementById("searchInput");
 
-const searchBox =
-    document.getElementById("searchBox");
-
-const searchInput =
-    document.getElementById("searchInput");
-
-
-searchButton.addEventListener("click", () => {
-
-    searchBox.classList.toggle("active");
-
-    if (
-        searchBox.classList.contains("active")
-    ) {
-
-        searchInput.focus();
-
-    }
-
-});
-
-
-searchInput.addEventListener("input", () => {
-
-    const search =
-        searchInput.value
-            .toLowerCase()
-            .trim();
-
-    productCards.forEach((card) => {
-
-        const name =
-            card.dataset.name.toLowerCase();
-
-        if (name.includes(search)) {
-
-            card.style.display = "";
-
-        } else {
-
-            card.style.display = "none";
-
+if (searchButton && searchBox && searchInput) {
+    searchButton.addEventListener("click", () => {
+        searchBox.classList.toggle("active");
+        if (searchBox.classList.contains("active")) {
+            searchInput.focus();
         }
-
     });
 
-});
+    searchInput.addEventListener("input", () => {
+        const search = searchInput.value.toLowerCase().trim();
 
-
-// ================================
-// FINALIZAR COMPRA
-// WHATSAPP
-// ================================
-
-checkoutButton.addEventListener("click", () => {
-    if (productsInCart.length === 0) {
-        alert("Seu carrinho está vazio!");
-        return;
-    }
-
-    let subtotal = 0;
-
-    const productLines = productsInCart.map((product) => {
-        const itemSubtotal = product.price * product.quantity;
-        subtotal += itemSubtotal;
-        return `• *${product.quantity}x* ${product.name}\n  _R$ ${product.price.toFixed(2).replace(".", ",")} un._ ➔ *R$ ${itemSubtotal.toFixed(2).replace(".", ",")}*`;
+        productCards.forEach((card) => {
+            const name = card.dataset.name.toLowerCase();
+            if (name.includes(search)) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+        });
     });
+}
 
-    let discountAmount = 0;
-    let couponText = "Nenhum cupom aplicado";
+// ================================
+// FINALIZAR COMPRA (WHATSAPP)
+// ================================
 
-    if (appliedCoupon) {
-        if (appliedCoupon.type === "percentage") {
-            discountAmount = (subtotal * appliedCoupon.value) / 100;
-        } else if (appliedCoupon.type === "fixed") {
-            discountAmount = appliedCoupon.value;
+if (checkoutButton) {
+    checkoutButton.addEventListener("click", () => {
+        if (productsInCart.length === 0) {
+            alert("Seu carrinho está vazio!");
+            return;
         }
-        if (discountAmount > subtotal) discountAmount = subtotal;
 
-        couponText = `\`${appliedCoupon.code}\` (${appliedCoupon.label})`;
-    }
+        let subtotal = 0;
 
-    const total = subtotal - discountAmount;
+        const productLines = productsInCart.map((product) => {
+            const itemSubtotal = product.price * product.quantity;
+            subtotal += itemSubtotal;
+            return `• *${product.quantity}x* ${product.name}\n  _R$ ${product.price.toFixed(2).replace(".", ",")} un._ ➔ *R$ ${itemSubtotal.toFixed(2).replace(".", ",")}*`;
+        });
 
-    // Mensagem estilo Embed do Discord
-    let message = `🛍️ *M7STORE — NOVO PEDIDO*\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
-    message += `📋 *ITENS DO PEDIDO:*\n\n`;
-    message += `${productLines.join("\n\n")}\n\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `💵 *RESUMO FINANCEIRO:*\n`;
-    message += `• *Subtotal:* R$ ${subtotal.toFixed(2).replace(".", ",")}\n`;
-    message += `🎟️ *Cupom:* ${couponText}\n`;
+        let discountAmount = 0;
+        let couponText = "Nenhum cupom aplicado";
 
-    if (discountAmount > 0) {
-        message += `💰 *Desconto:* -R$ ${discountAmount.toFixed(2).replace(".", ",")}\n`;
-    }
+        if (appliedCoupon) {
+            if (appliedCoupon.type === "percentage") {
+                discountAmount = (subtotal * appliedCoupon.value) / 100;
+            } else if (appliedCoupon.type === "fixed") {
+                discountAmount = appliedCoupon.value;
+            }
+            if (discountAmount > subtotal) discountAmount = subtotal;
 
-    message += `🔥 *TOTAL A PAGAR:* *R$ ${total.toFixed(2).replace(".", ",")}*\n\n`;
-    message += `━━━━━━━━━━━━━━━━━━━━━\n`;
-    message += `📍 *Aguardando confirmação para envio!*`;
+            couponText = `\`${appliedCoupon.code}\` (${appliedCoupon.label})`;
+        }
 
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/5532998048061?text=${encodedMessage}`;
+        const total = subtotal - discountAmount;
 
-    window.open(whatsappUrl, "_blank");
-});
+        let message = `🛍️ *M7STORE — NOVO PEDIDO*\n`;
+        message += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
+        message += `📋 *ITENS DO PEDIDO:*\n\n`;
+        message += `${productLines.join("\n\n")}\n\n`;
+        message += `━━━━━━━━━━━━━━━━━━━━━\n`;
+        message += `💵 *RESUMO FINANCEIRO:*\n`;
+        message += `• *Subtotal:* R$ ${subtotal.toFixed(2).replace(".", ",")}\n`;
+        message += `🎟️ *Cupom:* ${couponText}\n`;
 
+        if (discountAmount > 0) {
+            message += `💰 *Desconto:* -R$ ${discountAmount.toFixed(2).replace(".", ",")}\n`;
+        }
 
-});
+        message += `🔥 *TOTAL A PAGAR:* *R$ ${total.toFixed(2).replace(".", ",")}*\n\n`;
+        message += `━━━━━━━━━━━━━━━━━━━━━\n`;
+        message += `📍 *Aguardando confirmação para envio!*`;
 
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/5532998048061?text=${encodedMessage}`;
+
+        window.open(whatsappUrl, "_blank");
+    });
+}
 
 // ================================
 // INICIAR CARRINHO
