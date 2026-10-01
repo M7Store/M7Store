@@ -252,8 +252,9 @@ body {
     width: 100%;
     height: 100%;
 
-    object-fit: cover;
-    object-position: center top;
+    /* Estas duas linhas juntas são a solução */
+    object-fit: cover; /* Mantém o preenchimento sem distorcer */
+    object-position: center top; /* <-- AJUSTE AQUI: Ancara o topo da imagem para não cortar o rosto */
 
     transition: 0.5s;
 }
